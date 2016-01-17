@@ -20,7 +20,8 @@ $generateApp = getenv('GENERATE_APP') || (isset($_GET['v']) && ($_GET['v'] === '
 if ($generateApp) {
     define('HOST_DOMAIN', 'https://bus-madrid.striptm.com/');
 } else {
-    define('HOST_DOMAIN', 'http://'.$_SERVER['HTTP_HOST'].'/');
+    $protocol = getenv('FORCE_HTTP') ? 'http://' : 'https://';
+    define('HOST_DOMAIN', $protocol.$_SERVER['HTTP_HOST'].'/');
 }
 
 // Api rest service

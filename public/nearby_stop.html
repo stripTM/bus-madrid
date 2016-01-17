@@ -41,7 +41,7 @@ function renderStopsLine($nearby)
         $sOutput .= '<div class="wrapList"><ul class="list">';
         foreach ($aResult['stop'] as $stop) {
             $lines = $stop['line'];
-            $stopLines = [];
+            $stopLines = array();
             foreach ($lines as $line) {
                 $stopLines[] = $line['line'];
             }
