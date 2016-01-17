@@ -1,0 +1,432 @@
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	font-family: sans-serif;
+	/* color: #8899A6; */
+	color: #444;
+}
+a, a:link, a:visited {
+	color: #444;
+	text-decoration: none;
+}
+a:hover {
+	color: #000;
+}
+.no-js .only-js {
+	display: none;
+}
+
+#secHome.hidden,
+#secNearbyStop.hidden,
+#secBusStop.hidden,
+#secBusNumber.hidden {
+	display: block;
+	border: 3px dotted green;
+	/* opacity: 0.5; */
+	display: none;
+}
+/* Home */
+#geoInfo,
+#busStop,
+#busNumber {
+	margin: 0 0 1.5em 0;
+}
+#geoInfo label,
+#busStop label,
+#busNumber label,
+#frecencyList h1 {
+	display: block;
+	margin: 0;
+	padding: 0 0.3em;
+	background-color: #eee;
+	color: #000;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+#frecencyList .edit {
+	padding: 0 0 0 0.5em;
+}
+#busStop input,
+#busNumber input {
+		font-size: 1.5em;
+}
+#busStop .search,
+#busNumber .search {
+	width: 5em;
+}
+
+#frecencyList ul,
+#frecencyList li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#frecencyList li {
+	margin: 0.2em 0 0 0.5em;
+}
+#frecencyList  .sortable {
+	display: none;
+	cursor: move;
+}
+.sortable-ghost {
+	background-color: #eee;
+}
+#frecencyList .bookmark {
+	color: #444;
+	padding: 0 0.5em 0 0;
+}
+#frecencyList .bookmark:hover {
+	color: #000;
+}
+#frecencyList .toBus {
+	display: inline;
+}
+#frecencyList .editable {
+	display: none;
+	width: 80%;
+}
+#frecencyList.editMode .sortable {
+	display: inline;
+	padding: 0 0.5em;
+	color: #ccc;
+}
+#frecencyList.editMode li:hover .sortable {
+	color: #444;
+}
+#frecencyList.editMode .toBus {
+	display: none;
+}
+#frecencyList.editMode .editable {
+	display: inline;
+}
+#frecencyList li {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+}
+#frecencyList li .bookmark {
+	flex: 1 1 2%;
+}
+#frecencyList li .toBus,
+#frecencyList li .editable{
+	flex: 3 1 96%;
+}
+#frecencyList li .sortable{
+	flex: 1 1 2%;
+}
+
+footer {
+	margin: 1em 0.5em 0.5em 0;
+	text-align: right;
+}
+
+
+/* Bus stop & number*/
+header {
+	display: flex;
+	flex-direction: row;
+	background-color: #4C9ED9;
+	color: #FFF;
+}
+
+header h1 .address {
+	display: block;
+	font-size: 0.6em;
+}
+header h1 .lines{
+	display: block;
+	font-size: 0.5em;
+}
+.linkHome,
+h1 {
+	font-size: 2em;
+	margin: 0;
+	padding: 0 0.3em;
+	font-weight: bold;
+}
+.linkHome, .linkHome:link, .linkHome:visited {
+	background-color: #444;
+	color: #fff;
+
+}
+.linkHome:hover {
+	background-color: #000;
+}
+a.busStop::after {
+	content: " »";
+}
+
+.stopsLine h1 {
+	font-size: 1em;
+	padding: 0.5em 0.3em;
+	margin: 0 0 0.5em;
+	position: sticky;
+	top: 0;
+}
+.changeDir {
+	display: block;
+}
+.changeDir::after {
+	content: " »";
+}
+.collapsableTrigger {
+	cursor: pointer;
+	background-color: #eee;
+}
+.collapsableTrigger::after {
+	content: " »";
+}
+.wrapList {
+	overflow: hidden;
+}
+.list {
+	padding: 0 0 0 0.5em;
+	margin: 0;
+	font-size: 0.7em;
+	list-style: none;
+}
+.collapsableTarget {
+	/*
+	transition: .5s cubic-bezier(0, 1, 0.5, 1);
+	max-height: 500px
+	*/
+	overflow: hidden;
+}
+.collapsableTarget.hidden {
+	-moz-animation-duration: 0.5s;
+	-webkit-animation-duration: 0.5s;
+	-moz-animation-name: slideout;
+	-webkit-animation-name: slideout;
+	height: 0;
+}
+.collapsableTarget.visible {
+	-moz-animation-duration: 0.5s;
+	-webkit-animation-duration: 0.5s;
+	-moz-animation-name: slidein;
+	-webkit-animation-name: slidein;
+	height: auto;
+}
+
+@-moz-keyframes slideout {
+	from {
+		height: 1024px;
+	}
+	1% {
+		height:1024px;
+	}
+	to {
+		height:0;
+	}
+}
+@-moz-keyframes slidein {
+	from {
+		height:0;
+	}
+	99% {
+		height:1024px;
+	}
+	to {
+		height: 1024px;
+	}
+}
+
+@media (min-height: 480px) {
+	/*body { background-color: red; }*/
+	@-moz-keyframes slideout {
+		from {
+			height: 640px;
+		}
+		1% {
+			height:640px;
+		}
+		to {
+			height:0;
+		}
+	}
+	@-moz-keyframes slidein {
+		from {
+			height:0;
+		}
+		99% {
+			height:640px;
+		}
+		to {
+			height: 640px;
+		}
+	}
+}
+@media (min-height: 640px) {
+	/*body { background-color: green; }*/
+	@-moz-keyframes slideout {
+		from {
+			height: 1024px;
+		}
+		1% {
+			height:1024px;
+		}
+		to {
+			height:0;
+		}
+	}
+	@-moz-keyframes slidein {
+		from {
+			height:0;
+		}
+		99% {
+			height:1024px;
+		}
+		to {
+			height: 1024px;
+		}
+	}
+}
+@media (min-height: 1024px) {
+	/*body { background-color: blue;}*/
+	@-moz-keyframes slideout {
+		from {
+			height: 1280px;
+		}
+		1% {
+			height:1280px;
+		}
+		to {
+			height:0;
+		}
+	}
+	@-moz-keyframes slidein {
+		from {
+			height:0;
+		}
+		99% {
+			height:1280px;
+		}
+		to {
+			height: 1280px;
+		}
+	}
+}
+@media (min-height: 1280px) {
+	/*body { background-color: yellow; }*/
+	@-moz-keyframes slideout {
+		from {
+			height: 1500px;
+		}
+		1% {
+			height:1500px;
+		}
+		to {
+			height:0;
+		}
+	}
+	@-moz-keyframes slidein {
+		from {
+			height:0;
+		}
+		99% {
+			height:1500px;
+		}
+		to {
+			height: 1500px;
+		}
+	}
+}
+
+
+.collapsableTarget.hidden_v2 {
+	max-height: 0;
+}
+.collapsableTarget.visible_v2 {
+	max-height: none;
+}
+.collapsableTarget_v1 {
+	transition: .5s cubic-bezier(0, 1, 0.5, 1);
+	transform: translateY(0);
+	height: auto;
+}
+.collapsableTarget_v1.hidden {
+	transform: translateY(-100%);
+	height: 0;
+}
+
+#reload {
+	padding: 0.2em 0.5em 0.2em 0.2em;
+	background-color: #eee;
+	text-align: right;
+	font-size: 0.8em;
+}
+#reload a {
+	margin-right: 0.5em;
+}
+#reload a:after {
+	content: "\21BB"; /* Reload symbol ↻ */
+	display: inline-block;
+}
+#reload a.loading:after {
+	animation-name: loading;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+@keyframes loading {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.extra {
+	margin: 0;
+	padding: 0.5em;
+	font-size: 0.7em;
+}
+
+.list li {
+	padding: 0;
+	margin: 0 0 1em 0;
+	border-bottom: 1px solid #EEE;
+}
+.list h2 {
+	font-size: 1.3em;
+	margin: 0;
+}
+.list .subt {
+	color: #555;
+	margin: 0 0 1em 0;
+}
+
+/* Bookmarks */
+.bookmark {
+	color: #FFF;
+	font-size: 1.3em;
+}
+.bookmark:hover {
+	cursor: pointer;
+	color: #FFF;
+}
+.bookmark.starred,
+.bookmark.starred:link,
+.bookmark.starred:visited,
+.bookmark.starred:hover,
+.bookmark.starred:active  {
+	color: #FFF308;
+}
+
+/* Info messages */
+#info {
+	position: absolute;
+	background-color: #FFF;
+	top: 0;
+	right: 0;
+	padding: 0.5em 1em;
+	display: none;
+}
+#info.visible {
+	display: block;
+}

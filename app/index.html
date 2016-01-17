@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Bus Madrid</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="icon" href="favicon.png" type="image/png"/>
+</head>
+<body>
+    <section id="info"></section>
+    <section id="secHome">
+        <header>
+            <h1>Bus Madrid</h1>
+        </header>
+        <article id="geoInfo">
+            <form action="https://bus-madrid.striptm.com/nearby_stop.html" method="get">
+                <label for="idLatitude">Cercanas:</label>
+                <input type="hidden" name="latitude" id="idLatitude"/>
+                <input type="hidden" name="longitude" id="idLongitude"/>
+                <input type="submit" value="ʘ Localizar" title="consultar"/>
+            </form>
+        </article>
+        <article id="busStop">
+            <form action="https://bus-madrid.striptm.com/bus_stop.html" method="get">
+                <label for="idParada">Nº parada:</label>
+                <input type="number" name="id" id="idParada" class="search" autocomplete="off"/>
+                <input type="submit" value="»" title="consultar"/>
+            </form>
+        </article>
+        <article id="busNumber">
+            <form action="https://bus-madrid.striptm.com/bus_number.html" method="get">
+                <label for="idBus">Nº línea:</label>
+                <input type="text" name="id" id="idBus" list="lineasBus" class="search" autocomplete="off"/>
+                <datalist id='lineasBus'>
+<option value='1'/>
+<option value='2'/>
+<option value='3'/>
+<option value='4'/>
+<option value='5'/>
+<option value='6'/>
+<option value='7'/>
+<option value='8'/>
+<option value='9'/>
+<option value='10'/>
+<option value='11'/>
+<option value='12'/>
+<option value='14'/>
+<option value='15'/>
+<option value='16'/>
+<option value='17'/>
+<option value='18'/>
+<option value='19'/>
+<option value='20'/>
+<option value='21'/>
+<option value='22'/>
+<option value='23'/>
+<option value='24'/>
+<option value='25'/>
+<option value='26'/>
+<option value='27'/>
+<option value='28'/>
+<option value='29'/>
+<option value='30'/>
+<option value='31'/>
+<option value='32'/>
+<option value='33'/>
+<option value='34'/>
+<option value='35'/>
+<option value='36'/>
+<option value='37'/>
+<option value='38'/>
+<option value='39'/>
+<option value='40'/>
+<option value='41'/>
+<option value='42'/>
+<option value='43'/>
+<option value='44'/>
+<option value='45'/>
+<option value='46'/>
+<option value='47'/>
+<option value='48'/>
+<option value='49'/>
+<option value='50'/>
+<option value='51'/>
+<option value='52'/>
+<option value='53'/>
+<option value='54'/>
+<option value='55'/>
+<option value='56'/>
+<option value='57'/>
+<option value='58'/>
+<option value='59'/>
+<option value='60'/>
+<option value='61'/>
+<option value='62'/>
+<option value='63'/>
+<option value='64'/>
+<option value='65'/>
+<option value='66'/>
+<option value='67'/>
+<option value='C1'/>
+<option value='C2'/>
+<option value='70'/>
+<option value='71'/>
+<option value='72'/>
+<option value='73'/>
+<option value='74'/>
+<option value='75'/>
+<option value='76'/>
+<option value='77'/>
+<option value='78'/>
+<option value='79'/>
+<option value='81'/>
+<option value='82'/>
+<option value='83'/>
+<option value='85'/>
+<option value='86'/>
+<option value='87'/>
+<option value='E'/>
+<option value='F'/>
+<option value='G'/>
+<option value='A'/>
+<option value='H'/>
+<option value='U'/>
+<option value='100'/>
+<option value='101'/>
+<option value='102'/>
+<option value='103'/>
+<option value='104'/>
+<option value='105'/>
+<option value='106'/>
+<option value='107'/>
+<option value='108'/>
+<option value='109'/>
+<option value='110'/>
+<option value='111'/>
+<option value='112'/>
+<option value='113'/>
+<option value='114'/>
+<option value='115'/>
+<option value='116'/>
+<option value='117'/>
+<option value='118'/>
+<option value='119'/>
+<option value='120'/>
+<option value='121'/>
+<option value='122'/>
+<option value='123'/>
+<option value='124'/>
+<option value='125'/>
+<option value='126'/>
+<option value='127'/>
+<option value='128'/>
+<option value='129'/>
+<option value='130'/>
+<option value='131'/>
+<option value='132'/>
+<option value='133'/>
+<option value='134'/>
+<option value='135'/>
+<option value='136'/>
+<option value='137'/>
+<option value='138'/>
+<option value='139'/>
+<option value='140'/>
+<option value='141'/>
+<option value='142'/>
+<option value='143'/>
+<option value='144'/>
+<option value='145'/>
+<option value='146'/>
+<option value='147'/>
+<option value='148'/>
+<option value='149'/>
+<option value='150'/>
+<option value='151'/>
+<option value='152'/>
+<option value='153'/>
+<option value='155'/>
+<option value='156'/>
+<option value='160'/>
+<option value='161'/>
+<option value='162'/>
+<option value='172'/>
+<option value='173'/>
+<option value='174'/>
+<option value='176'/>
+<option value='177'/>
+<option value='178'/>
+<option value='180'/>
+<option value='200'/>
+<option value='203'/>
+<option value='210'/>
+<option value='215'/>
+<option value='247'/>
+<option value='310'/>
+<option value='172SF'/>
+<option value='E1'/>
+<option value='E2'/>
+<option value='E3'/>
+<option value='T11'/>
+<option value='T23'/>
+<option value='T32'/>
+<option value='T31'/>
+<option value='T61'/>
+<option value='T41'/>
+<option value='T62'/>
+<option value='H1'/>
+<option value='N1'/>
+<option value='N2'/>
+<option value='N3'/>
+<option value='N4'/>
+<option value='N5'/>
+<option value='N6'/>
+<option value='N7'/>
+<option value='N8'/>
+<option value='N9'/>
+<option value='N10'/>
+<option value='N11'/>
+<option value='N12'/>
+<option value='N13'/>
+<option value='N14'/>
+<option value='N15'/>
+<option value='N16'/>
+<option value='N17'/>
+<option value='N18'/>
+<option value='N19'/>
+<option value='N20'/>
+<option value='N21'/>
+<option value='N22'/>
+<option value='N23'/>
+<option value='N24'/>
+<option value='N25'/>
+<option value='N26'/>
+<option value='N27'/>
+<option value='M1'/>
+<option value='M2'/>
+<option value='SE702'/>
+<option value='SE704'/>
+<option value='SE730'/>
+<option value='SE766'/>
+<option value='SE799'/>
+</datalist>
+                <input type="hidden" name="d" value="1"/>
+                <input type="submit" value="»" title="consultar"/>
+            </form>
+        </article>
+        <div id="frecencyWrapper" data-action="https://bus-madrid.striptm.com/bus_stop.html"></div>
+        <footer><a href="http://www.emtmadrid.es/" rel="external">Powered by EMT <img src="style/icons/powered.gif" alt="EMT logo"/></a></footer>
+    </section>
+    <section id="secNearbyStop" class="hidden"></section>
+    <section id="secBusStop" class="hidden"></section>
+    <section id="secBusNumber" class="hidden"></section>
+    <script type="text/javascript" src="js/sortable.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

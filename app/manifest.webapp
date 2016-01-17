@@ -1,0 +1,29 @@
+{
+	"name": "Bus Madrid",
+	"description": "Conoce con exactitud el tiempo de llegada de tu autobús.",
+	"launch_path": "/index.html",
+	"icons": {
+		"128": "/style/icons/icon_128.png"
+	},
+	"permissions": {
+		"geolocation": {
+			"description":"Conocer las paradas próximas a donde nos encontramos."
+		}
+	},
+	"developer": {
+		"name": "stripTM - Mozilla Hispano",
+		"url": "http://striptm.com"
+	},
+	"default_locale": "es",
+	"version": "0.9.0",
+	"locales": {
+		"en": {
+			"name": "Bus Madrid",
+			"description": "Check the time left for your bus to arrive."
+		},
+		"fr": {
+			"name": "Bus Madrid",
+			"description": "Vérifier le temps restant pour l'arrivé de votre bus."
+		}
+	}
+}

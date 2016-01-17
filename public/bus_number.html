@@ -1,0 +1,88 @@
+<?php
+namespace BusMadrid;
+
+require '../conf.php';
+
+$idBus = $_GET['id'];
+$direction = $_GET['d'];
+
+$bus = new bus_do();
+try {
+    $idBus = $bus->searchLine($idBus);
+    $bus->loadStopLine($idBus, 'both');
+    $renderTitle = renderTitle($bus);
+    $renderStopsLine = renderStopsLine($bus);
+} catch (LineInvalidException $e) {
+    // Error técnico en $e
+    $renderTitle = 'Número de autobus desconocido';
+    $renderStopsLine = '<p>El número de autobus que buscas no aparece en nuestro listado, <a href="index.html">debes introducir número</a>, ejemplos de números válidos son 127, N21 o E.</p>';
+}
+
+function renderTitle($bus)
+{
+    return '<h1>Línea '.$bus->getLabel().'</h1>';
+}
+
+function renderStopsLine($bus)
+{
+    $aResult = $bus->getStopsLine();
+    if (isset($aResult[0]) && $aResult[0] === false) {
+        // TODO
+        return '';
+    } else {
+        $sOutput = '';
+        foreach ($aResult as $directionList) {
+            $sOutput .= '<section class="stopsLine">';
+            $sOutput .= '<h1>Dir. '.$directionList['destination'].'</h1>';
+            $sOutput .= '<div class="wrapList"><ul class="list">';
+            if (is_array($directionList['stop'])) {
+                foreach ($directionList['stop'] as $stop) {
+                    $sOutput .= '<li><h2><a href="'.HOST_DOMAIN.'bus_stop.html?id='.$stop['stopId'].'" class="busStop">'.$stop['name'].'</a></h2>';
+                    $sOutput .= '<div class="subt">'.$stop['postalAddress'].'</div>'; // .$stop['stopId'].' '
+                    $sOutput .= '</li>';
+                }
+            }
+            $sOutput .= '</ul></div>';
+            $sOutput .= '</section>';
+        }
+
+        return $sOutput;
+    }
+}
+
+$outputContent = '
+        <header>
+            <a class="linkHome" title="Portada" href="index.html">«</a>
+            '.$renderTitle.'
+        </header>
+        '.$renderStopsLine.'
+';
+
+$view = isset($_GET['v']) ? $_GET['v'] : '';
+switch ($view) {
+    case 'ajax':
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: text/html; charset=utf-8');
+        echo $outputContent;
+        break;
+    default:
+        header('Content-Type: text/html; charset=utf-8');
+        ?><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Tiempos de llegada</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="icon" href="favicon.png" type="image/png"/>
+</head>
+<body>
+    <section id="info"></section>
+    <section id="secBusNumber">
+        <?=$outputContent?>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html><?php
+        break;
+}

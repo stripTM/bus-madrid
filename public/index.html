@@ -1,0 +1,55 @@
+<?php
+require('../conf.php');
+?><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Bus Madrid</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="icon" href="favicon.png" type="image/png"/>
+</head>
+<body>
+    <section id="info"></section>
+    <section id="secHome">
+        <header>
+            <h1>Bus Madrid</h1>
+        </header>
+        <article id="geoInfo">
+            <form action="<?=HOST_DOMAIN?>nearby_stop.html" method="get">
+                <label for="idLatitude">Cercanas:</label>
+                <input type="hidden" name="latitude" id="idLatitude"/>
+                <input type="hidden" name="longitude" id="idLongitude"/>
+                <input type="submit" value="ʘ Localizar" title="consultar"/>
+            </form>
+        </article>
+        <article id="busStop">
+            <form action="<?=HOST_DOMAIN?>bus_stop.html" method="get">
+                <label for="idParada">Nº parada:</label>
+                <input type="number" name="id" id="idParada" class="search" autocomplete="off"/>
+                <input type="submit" value="»" title="consultar"/>
+            </form>
+        </article>
+        <article id="busNumber">
+            <form action="<?=HOST_DOMAIN?>bus_number.html" method="get">
+                <label for="idBus">Nº línea:</label>
+                <input type="text" name="id" id="idBus" list="lineasBus" class="search" autocomplete="off"/>
+                <?php
+                    if (file_exists(DIR_DATA.'/lines_datalist.inc')) {
+                        require DIR_DATA.'/lines_datalist.inc';
+                    }
+                ?>
+                <input type="hidden" name="d" value="1"/>
+                <input type="submit" value="»" title="consultar"/>
+            </form>
+        </article>
+        <div id="frecencyWrapper" data-action="<?=HOST_DOMAIN?>bus_stop.html"></div>
+        <footer><a href="http://www.emtmadrid.es/" rel="external">Powered by EMT <img src="style/icons/powered.gif" alt="EMT logo"/></a></footer>
+    </section>
+    <section id="secNearbyStop" class="hidden"></section>
+    <section id="secBusStop" class="hidden"></section>
+    <section id="secBusNumber" class="hidden"></section>
+    <script type="text/javascript" src="js/sortable.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

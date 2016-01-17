@@ -1,0 +1,95 @@
+<?php
+namespace BusMadrid;
+
+require('../conf.php');
+
+$commonData = array(
+    'idClient' => EMT_ID_CLIENT,
+    'passKey' => EMT_PASS_KEY
+);
+
+$latitude = $_GET['latitude'];
+$longitude = $_GET['longitude'];
+
+// ----
+$nearby = new nearby_do();
+try {
+    $nearby->loadNearlyStop($latitude, $longitude, "250");//"250");
+    $renderTitle = renderTitle($nearby);
+    $renderStopsLine = renderStopsLine($nearby);
+} catch (NearbyInvalidException $e) {
+    // Error técnico en $e
+    $renderTitle = 'Ubicación desconocida';
+    $renderStopsLine = '<p>No es posible obtener la ubicación.</p>';
+}
+
+
+function renderTitle($nearby)
+{
+    return '<h1>Paradas cercanas</h1>';
+}
+
+function renderStopsLine($nearby)
+{
+    $aResult = $nearby->getStopsLine();
+  //d($aResult);
+    if (isset($aResult[0]) && $aResult[0] === false || !isset($aResult['stop'])) {
+        // TODO
+        return '<p>Ninguna parada cercana.</p>';
+    } else {
+        $sOutput = '<section class="nearbyStop">';
+        $sOutput .= '<div class="wrapList"><ul class="list">';
+        foreach ($aResult['stop'] as $stop) {
+            $lines = $stop['line'];
+            $stopLines = [];
+            foreach ($lines as $line) {
+                $stopLines[] = $line['line'];
+            }
+
+            $sOutput .= '<li><h2><a href="'.HOST_DOMAIN.'bus_stop.html?id='.$stop['stopId'].'" class="busStop">'.$stop['name'].'. <span class="lines">('.implode(', ', $stopLines).')</span></a></h2>';
+            $sOutput .= '<div class="subt">'.$stop['postalAddress'].', a '.units::humanDistance($stop['distance']).'</div>'; // .$stop['stopId'].' '
+            $sOutput .= '</li>';
+        }
+        $sOutput .= '</ul></div>';
+        $sOutput .= '</section>';
+
+        return ($sOutput);
+    }
+}
+
+$outputContent = '
+    <header>
+        <a class="linkHome" title="Portada" href="index.html">«</a>
+        '.$renderTitle.'
+    </header>
+    '.$renderStopsLine.'
+';
+
+$view=isset($_GET['v']) ? $_GET['v'] : '';
+switch ($view) {
+    case 'ajax':
+        header("Access-Control-Allow-Origin: *");
+        header('Content-Type: text/html; charset=utf-8');
+        echo $outputContent;
+        break;
+    default:
+        header('Content-Type: text/html; charset=utf-8');
+        ?><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Tiempos de llegada</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="icon" href="favicon.png" type="image/png"/>
+</head>
+<body>
+    <section id="info"></section>
+    <section id="secBusNumber">
+        <?=$outputContent?>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html><?php
+        break;
+}

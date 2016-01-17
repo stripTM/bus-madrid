@@ -1,0 +1,132 @@
+<?php
+namespace BusMadrid;
+
+require('../conf.php');
+
+$idStop = $_GET['id'];
+$stop = new stop_do();
+try {
+    $stop->loadArriveStop($idStop);
+    $renderTitle = renderTitle($stop);
+    $renderTimeLeft = renderTimeLeft($stop);
+} catch (StopInvalidException $e) {
+    // Error técnico en $e
+    $renderTitle = 'Parada no encontrada';
+    $renderTimeLeft = '<p>La parada que buscas no aparece en nuestro listado, <a href="index.html">revisa que el número es correcto o prueba a buscarla partiendo de un número de autobus</a>.</p>';
+}
+
+//var_dump($aResult);
+
+
+function renderTitle($stop)
+{
+    // Write the bus numbers from the stop, example: 127, 132 y N21
+    $busNumber = array();
+    foreach ($stop->getStopLines() as $key) {
+        $busNumber[] = $key['label'];
+    }
+    asort($busNumber);
+//d(implode (' y ', $busNumber));
+//$busNumber = array('127');
+//$busNumber = array('127', '132');
+//$busNumber = array('127', '132', '42');
+    $firstBusNumbers = array_slice($busNumber, 0, -1);
+    $lastBusNumber = array_slice($busNumber, -1);
+    if (count($firstBusNumbers) == 0) {
+        $sLines = 'Línea: '.$lastBusNumber[0];
+    } else {
+        $sLines = 'Líneas: '.implode(', ', $firstBusNumbers).' y '.$lastBusNumber[0];
+    }
+    $bookmark = ' <a class="js-bookmark bookmark only-js" data-idstop="'.$stop->getStop().'" data-titlestop="'.htmlspecialchars($stop->getDescription()).'">☆</a>';
+    $sLines  = '<span class="lines">'.$sLines.'</span>';
+    //$sAddress = '<div>Parada '.$stop->getStop().' '.$stop->getDirection().'</div>';
+    $sAddress = '<span class="address"><span class="js-title" data-idstop="'.$stop->getStop().'">'.$stop->getDescription().'</span>'.$bookmark.'</span>';
+
+
+//d(count($firstBusNumbers), $firstBusNumbers, $lastBusNumber);
+    $sOutput = $sAddress.$sLines;
+    return $sOutput;
+}
+function renderTimeLeft($stop)
+{
+    $aResult = $stop->getTimeLeft();
+    if (isset($aResult[0]) && $aResult[0] === false || $aResult['errorCode'] == -1) {
+        return '<p class="extra">Ningún bus cercano.</p>';
+    } else {
+        //d($aResult);
+        $sOutput = '<section class="busLine">';
+        $sOutput .= '<div id="reload"><a href="'.HOST_DOMAIN.'bus_stop.html?id='.$stop->getStop().'">Última actualización a las '.date('H:i', $aResult['timestamp']).'h.</a></div>';
+        $sOutput .= '<p class="extra">#'.$stop->getStop().'. '.$stop->getDirection().'</p>';
+        $sOutput .= '<ul class="list">';
+        foreach ($aResult['arrives']['arriveEstimationList']['arrive'] as $arrive) {
+            $busTimeLeft = $arrive['busTimeLeft'];
+            switch ($busTimeLeft) {
+                case '0':
+                    $min = 'En parada';
+                    break;
+                case '999999':
+                    $min = '+20 minutos';
+                    break;
+                default:
+                    if ($busTimeLeft < 60) {
+                        $min = 'Aproximándose a parada';
+                    } else {
+                        $min = round($busTimeLeft / 60);
+                        $min .= $min == 1 ? ' minuto' : ' minutos';
+                    }
+                    break;
+            }
+
+            if ($busTimeLeft == 0 || $arrive['busDistance'] < 50) {
+                $distance = '';
+            } else {
+                $distance = ', '.units::humanDistance($arrive['busDistance']);
+            }
+
+            $sOutput .= '<li><h2>'.$arrive['lineId'].' '.$arrive['destination'].'</h2>';
+            $sOutput .= '<div class="subt">Tiempo llegada: '.$min.$distance.'.</div>';
+            $sOutput .= '</li>';
+        }
+        $sOutput .= '</ul>';
+        $sOutput .= '</section>';
+
+        return ($sOutput);
+    }
+}
+
+$outputContent = '
+    <header>
+        <a class="linkHome" title="Portada" href="index.html">«</a>
+        <h1>'.$renderTitle.'</h1>
+    </header>
+    '.$renderTimeLeft.'
+';
+
+$view=isset($_GET['v']) ? $_GET['v'] : '';
+switch ($view) {
+    case 'ajax':
+        header("Access-Control-Allow-Origin: *");
+        header('Content-Type: text/html; charset=utf-8');
+        echo $outputContent;
+        break;
+    default:
+        header('Content-Type: text/html; charset=utf-8');
+        ?><!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Tiempos de llegada</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="icon" href="favicon.png" type="image/png"/>
+</head>
+<body>
+    <section id="info"></section>
+    <section id="secBusStop">
+        <?=$outputContent?>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html><?php
+        break;
+}
