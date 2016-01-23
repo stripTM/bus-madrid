@@ -1,5 +1,17 @@
+@font-face {
+	font-family: 'icomoon';
+	src:	url('../style/fonts/icomoon.eot?nyjvxb');
+	src:	url('../style/fonts/icomoon.eot?nyjvxb#iefix') format('embedded-opentype'),
+		url('../style/fonts/icomoon.ttf?nyjvxb') format('truetype'),
+		url('../style/fonts/icomoon.woff?nyjvxb') format('woff'),
+		url('../style/fonts/icomoon.svg?nyjvxb#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 html {
 	height: 100%;
+	font: 400 1em/1.4 'Open Sans',sans-serif;
+	text-rendering: optimizeLegibility;
 }
 body {
 	margin: 0;
@@ -9,6 +21,79 @@ body {
 	/* color: #8899A6; */
 	color: #444;
 }
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.action-home .label-to-action,
+#frecencyWrapper .label-to-action {
+	font-family: sans-serif;
+	cursor: pointer;
+}
+
+.icon-nearby:before {
+	content: " \e900";
+}
+.icon-bus_stop:before {
+	content: " \e901";
+}
+.icon-bus_number:before {
+	content: " \e902";
+}
+.icon-star:after {
+	content: " \e903";
+}
+.icon-star_border:before {
+	content: "\e904";
+}
+.icon-arrow_up:before {
+	content: "\e905";
+}
+.icon-arrow_down:before {
+	content: "\e906";
+}
+.icon-menu:before {
+	content: "\e907";
+}
+.icon-menu_2:before {
+	content: "\e908";
+}
+.icon-bookmark:before {
+	content: "\e909";
+}
+.icon-bookmark_border:before {
+	content: "\e90a";
+}
+.icon-search:before {
+	content: "\e90b";
+}
+.icon-drag:before {
+	content: "\e90c";
+}
+.icon-drag_2:before {
+	content: "\e90d";
+}
+.icon-sync:before {
+	content: "\e90e";
+}
+.icon-edit:before {
+	content: "\e90f";
+}
+.icon-back:before {
+	content: "\e910";
+}
+
 a, a:link, a:visited {
 	color: #444;
 	text-decoration: none;
@@ -16,20 +101,187 @@ a, a:link, a:visited {
 a:hover {
 	color: #000;
 }
-.no-js .only-js {
+.no-js .only-js,
+.js .js-hide {
 	display: none;
 }
 
+#mascara {pointer-events: none; position: absolute; top: 0; left: 0; opacity: 0.1; }
+
+#secHome {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+#secHome header {
+	order: 1;
+}
+#secHome #geoInfo {
+	order: 1;
+}
+#secHome #busStop {
+	order: 2;
+}
+#secHome #busNumber {
+	order: 3;
+}
+#secHome  footer {
+	order: 4;
+	flex: 1;
+	font-size: 0.8em;
+	margin: 0 1em 1em 1em;
+}
+#secHome #frecencyWrapper {
+	order: 5;
+	flex-shrink: 2;
+	margin: 0;
+}
+header {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	background-color: #0B72CF;
+	color: #FFF;
+	margin: 0 0 1em 0;
+	box-shadow: 0 0.2em 0.2em #C4C4C4;
+}
+h1 {
+	font-size: 3.7em;
+	margin: 0;
+	padding: 0.1em 0.2em;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+}
+#secHome article {
+	margin: 0 1em 1em 1em;
+}
+#secHome article h1 {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+
+	align-items: center;
+	justify-content: center;
+}
+
+#secHome article.on h1 {
+	background-color: #85B8E7;
+}
+#secHome article h1 label {
+	flex: 1;
+	font-size: 0.85em;
+	font-weight: 400;
+}
+#secHome h1 .icon-back {
+	font-size: 2.5em;
+	vertical-align: middle;
+}
+#secHome h1 .icon-nearby,
+#secHome h1 .icon-bus_stop,
+#secHome h1 .icon-bus_number {
+	font-size: 2.5em;
+	vertical-align: middle;
+	padding-right: 0.4em;
+}
+#secHome h1 label {
+	vertical-align: middle;
+}
+#secHome article.off h1 .icon-back {
+	/* visibility: hidden; */
+	display: none;
+}
+#secHome article.off .action-target {
+	display: none;
+}
+#frecencyWrapper h1 {
+	background-color: #0B72CF;
+	color: #FFF;
+	font-size: 1.5em;
+}
+.home-option #secHome article.off,
+.home-option footer {
+	display: none;
+}
+
+.home-option #secHome #busStop form,
+.home-option #secHome #busNumber form {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+.home-option #secHome .search,
+.home-option #secHome .submit {
+	width: 100%;
+	display: block;
+	box-sizing: border-box;
+	margin: 0.5em 0;
+	font-size: 3em;
+	padding: 0.5em 0.1em;
+	text-align: center;
+	border: 1px solid #0B72CF;
+	border-radius: 0.8rem;
+}
+.home-option #secHome .submit {
+	background-color: #0B72CF;
+	color: #fff;
+	font-family: 'icomoon';
+	font-size: 6em;
+	margin: 0;
+	padding: 0.1em;
+}
+
+#secHome #frecencyList {
+	margin: 0;
+}
+#secHome #frecencyWrapper .action-frecency {
+
+	background-repeat: no-repeat;
+	background-position: right;
+	cursor: pointer;
+}
+#secHome #frecencyWrapper.off .action-frecency {
+	background-image: url(../style/icons/ic_arrow_drop_up_white_24px.svg);
+}
+#secHome #frecencyWrapper.on .action-frecency {
+	background-image: url(../style/icons/ic_arrow_drop_down_white_24px.svg);
+}
+.action-home {
+	background-color: #0B72CF;
+	color: #FFF;
+	padding: 0.8em 0.5rm 0.8em 0.5em;
+	border: 0;
+	box-shadow: 0.2em 0.2em 0.2em #C4C4C4;
+	font-size: 2.5em;
+	border-radius: 0.3em;
+	text-transform: uppercase;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.nearby::after {
+	content: " 0";
+	font-size: 5em;
+	background-image: url(/borrador/ic_restore_black_48dp_2x.png);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+}
+
+footer {
+	margin: 1em 0.5em 0.5em 0;
+	text-align: right;
+}
+
+/*
 #secHome.hidden,
 #secNearbyStop.hidden,
 #secBusStop.hidden,
 #secBusNumber.hidden {
 	display: block;
 	border: 3px dotted green;
-	/* opacity: 0.5; */
 	display: none;
 }
-/* Home */
+/ Home /
 #geoInfo,
 #busStop,
 #busNumber {
@@ -42,7 +294,6 @@ a:hover {
 	display: block;
 	margin: 0;
 	padding: 0 0.3em;
-	background-color: #eee;
 	color: #000;
 	font-size: 1.5em;
 	font-weight: bold;
@@ -120,18 +371,21 @@ a:hover {
 	flex: 1 1 2%;
 }
 
+#mascara {pointer-events: none; position: absolute; top: 0; left: 0; opacity: 1; }
 footer {
 	margin: 1em 0.5em 0.5em 0;
 	text-align: right;
 }
 
 
-/* Bus stop & number*/
+/ Bus stop & number/
 header {
 	display: flex;
 	flex-direction: row;
-	background-color: #4C9ED9;
+	background-color: #0B72CF;
 	color: #FFF;
+	margin: 0 0 0.2em 0;
+	box-shadow: 0 0.2em 0.2em #C4C4C4;
 }
 
 header h1 .address {
@@ -144,10 +398,11 @@ header h1 .lines{
 }
 .linkHome,
 h1 {
-	font-size: 2em;
+	font-size: 3.8em;
 	margin: 0;
-	padding: 0 0.3em;
+	padding: 0.1em 0.2em;
 	font-weight: bold;
+	text-transform: uppercase;
 }
 .linkHome, .linkHome:link, .linkHome:visited {
 	background-color: #444;
@@ -191,10 +446,6 @@ a.busStop::after {
 	list-style: none;
 }
 .collapsableTarget {
-	/*
-	transition: .5s cubic-bezier(0, 1, 0.5, 1);
-	max-height: 500px
-	*/
 	overflow: hidden;
 }
 .collapsableTarget.hidden {
@@ -236,7 +487,6 @@ a.busStop::after {
 }
 
 @media (min-height: 480px) {
-	/*body { background-color: red; }*/
 	@-moz-keyframes slideout {
 		from {
 			height: 640px;
@@ -261,7 +511,6 @@ a.busStop::after {
 	}
 }
 @media (min-height: 640px) {
-	/*body { background-color: green; }*/
 	@-moz-keyframes slideout {
 		from {
 			height: 1024px;
@@ -286,7 +535,6 @@ a.busStop::after {
 	}
 }
 @media (min-height: 1024px) {
-	/*body { background-color: blue;}*/
 	@-moz-keyframes slideout {
 		from {
 			height: 1280px;
@@ -311,7 +559,6 @@ a.busStop::after {
 	}
 }
 @media (min-height: 1280px) {
-	/*body { background-color: yellow; }*/
 	@-moz-keyframes slideout {
 		from {
 			height: 1500px;
@@ -363,7 +610,7 @@ a.busStop::after {
 	margin-right: 0.5em;
 }
 #reload a:after {
-	content: "\21BB"; /* Reload symbol ↻ */
+	content: "\21BB"; / Reload symbol ↻ /
 	display: inline-block;
 }
 #reload a.loading:after {
@@ -401,7 +648,7 @@ a.busStop::after {
 	margin: 0 0 1em 0;
 }
 
-/* Bookmarks */
+/ Bookmarks /
 .bookmark {
 	color: #FFF;
 	font-size: 1.3em;
@@ -418,7 +665,7 @@ a.busStop::after {
 	color: #FFF308;
 }
 
-/* Info messages */
+/ Info messages /
 #info {
 	position: absolute;
 	background-color: #FFF;
@@ -430,3 +677,4 @@ a.busStop::after {
 #info.visible {
 	display: block;
 }
+*/
